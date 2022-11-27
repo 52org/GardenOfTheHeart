@@ -15,13 +15,9 @@ public class LetterDto {
 
     public Letter toEntity() {
         return Letter.builder()
-            .plantName(plantName)
-            .author(author)
-            .message(message)
-            .build();
-    }
-
-    public Long getGardenUuid() {
-        return Long.parseLong(uuid);
+                .plantName(plantName)
+                .author(author)
+                .message(message)
+                .build();
     }
 }

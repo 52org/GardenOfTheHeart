@@ -16,10 +16,10 @@ public class LetterDetailDto {
 
     public static LetterDetailDto toDto(Letter letter) {
         return new LetterDetailDto(
-            letter.getPlantName(),
-            letter.getAuthor(),
-            letter.getCreatedAt(),
-            letter.getMessage()
+                letter.getPlantName(),
+                letter.getAuthor(),
+                letter.getCreatedAt(),
+                letter.getMessage()
         );
     }
 }

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +18,11 @@ public class LetterWrapperDto {
 
     public static List<LetterWrapperDto> toDto(List<Letter> letters) {
         return letters.stream()
-            .map(letter -> new LetterWrapperDto(
-            Long.toString(letter.getId()),
-            letter.getPlantName(),
-            letter.getAuthor(),
-            letter.getCreatedAt()
-        )).collect(Collectors.toList());
+                .map(letter -> new LetterWrapperDto(
+                        Long.toString(letter.getId()),
+                        letter.getPlantName(),
+                        letter.getAuthor(),
+                        letter.getCreatedAt()
+                )).collect(Collectors.toList());
     }
 }
