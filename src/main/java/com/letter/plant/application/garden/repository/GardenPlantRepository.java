@@ -11,6 +11,6 @@ public interface GardenPlantRepository extends JpaRepository<GardenPlant, Long> 
 
     Optional<List<GardenPlant>> findByGarden(Garden garden);
 
-    Optional<GardenPlant> findByLetterId(long parseLong);
+    Optional<GardenPlant> findByLetterId(Long letterId);
 
 }

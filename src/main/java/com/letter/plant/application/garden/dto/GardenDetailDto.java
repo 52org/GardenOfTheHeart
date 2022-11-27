@@ -16,12 +16,11 @@ public class GardenDetailDto {
     private List<PlantDto> plantList;
 
     public static GardenDetailDto toDto(String name, List<GardenPlant> gardenPlants) {
+
         List<PlantDto> plantDtoList = gardenPlants.stream().map(PlantDto::toDto).collect(Collectors.toList());
 
-        return new GardenDetailDto(
-                name,
-                plantDtoList
-        );
+        return new GardenDetailDto(name, plantDtoList);
+
     }
 
 }

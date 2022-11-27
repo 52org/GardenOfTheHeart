@@ -26,8 +26,10 @@ public class Garden extends TimeEntity {
 
     @Builder
     public Garden(String uuid, String name) {
+
         this.uuid = uuid;
         this.name = name;
+
     }
 
 }

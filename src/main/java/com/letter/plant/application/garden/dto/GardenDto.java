@@ -11,10 +11,12 @@ public class GardenDto {
     private String name;
 
     public Garden toEntity() {
+
         return Garden.builder()
                 .uuid(uuid)
                 .name(name)
                 .build();
+
     }
 
 }
