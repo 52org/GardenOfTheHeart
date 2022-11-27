@@ -2,7 +2,6 @@ package com.letter.plant.application.garden.domain;
 
 import com.letter.plant.application.letter.domain.Letter;
 import com.letter.plant.core.jpa.TimeEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

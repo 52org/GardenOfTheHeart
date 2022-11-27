@@ -12,9 +12,9 @@ public class GardenDto {
 
     public Garden toEntity() {
         return Garden.builder()
-            .uuid(uuid)
-            .name(name)
-            .build();
+                .uuid(uuid)
+                .name(name)
+                .build();
     }
 
 }
