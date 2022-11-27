@@ -70,6 +70,8 @@ public class GardenService {
 
         gardenPlant.increaseCount();
 
+        gardenPlantRepository.save(gardenPlant);
+
     }
 
 }
