@@ -26,9 +26,13 @@ public class GardenService {
     private final LetterRepository letterRepository;
 
     @Transactional
-    public void createGarden(GardenDto gardenDto) {
+    public boolean createGarden(GardenDto gardenDto) {
+
+        if (gardenRepository.findByUuid(gardenDto.getUuid()).isPresent()) return false;
 
         gardenRepository.save(gardenDto.toEntity());
+
+        return true;
 
     }
 

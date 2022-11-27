@@ -18,9 +18,8 @@ public class GardenController {
     @PostMapping
     public ApiResponse createGarden(@RequestBody GardenDto gardenDto) {
 
-        gardenService.createGarden(gardenDto);
-
-        return ApiResponse.noContent();
+        if (gardenService.createGarden(gardenDto)) return ApiResponse.noContent();
+        else return ApiResponse.fail("텃밭 UUID 가 이미 존재합니다.");
 
     }
 
