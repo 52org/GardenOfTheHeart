@@ -20,7 +20,7 @@ public class Letter extends TimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Garden garden;
 
-    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "letter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Keyword> keywords = new ArrayList<>();
 
     @Builder

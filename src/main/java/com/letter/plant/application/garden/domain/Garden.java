@@ -22,7 +22,7 @@ public class Garden extends TimeEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "letter", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "garden", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Letter> letters = new ArrayList<>();
 
     @Builder
