@@ -5,7 +5,6 @@ import com.letter.plant.application.garden.dto.GardenDto;
 import com.letter.plant.application.garden.service.GardenService;
 import com.letter.plant.core.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +15,7 @@ public class GardenController {
     private final GardenService gardenService;
 
     @PostMapping
-    public ApiResponse createGarden(GardenDto gardenDto) {
+    public ApiResponse createGarden(@RequestBody GardenDto gardenDto) {
 
         gardenService.createGarden(gardenDto);
 
