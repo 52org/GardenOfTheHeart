@@ -2,7 +2,10 @@ package com.letter.plant.application.letter.domain;
 
 import com.letter.plant.application.garden.domain.Garden;
 import com.letter.plant.core.jpa.TimeEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class Letter extends TimeEntity {
     }
 
     public void addKeywords(List<String> keyWords) {
+        this.keywords = new ArrayList<>();
+
         for (String word : keyWords) {
             this.keywords.add(new Keyword(this, word));
         }
