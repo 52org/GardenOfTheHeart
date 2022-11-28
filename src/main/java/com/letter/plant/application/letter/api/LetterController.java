@@ -18,7 +18,11 @@ public class LetterController {
 
     @PostMapping("/letter/send")
     private ApiResponse letterSend(@RequestBody LetterDto letterDto) {
-        letterService.makeLetter(letterDto);
+        try {
+            letterService.makeLetter(letterDto);
+        } catch (Exception e) {
+            return ApiResponse.fail("fail");
+        }
 
         return ApiResponse.noContent();
     }
@@ -36,4 +40,5 @@ public class LetterController {
 
         return ApiResponse.success(letters);
     }
+
 }

@@ -29,6 +29,8 @@ public class LetterService {
         Garden garden = gardenRepository.findByUuid(letterDto.getUuid())
                 .orElseThrow(RuntimeException::new);
 
+        if (garden.getLetters().size() == 9) throw new RuntimeException();
+
         Letter letter = letterDto.toEntity();
         letter.addKeywords(letterDto.getKeyWords());
         letter.addGarden(garden);
