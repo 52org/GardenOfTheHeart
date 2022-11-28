@@ -1,6 +1,6 @@
 package com.letter.plant.application.garden.dto;
 
-import com.letter.plant.application.garden.domain.GardenPlant;
+import com.letter.plant.application.garden.domain.Plant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,9 +15,9 @@ public class GardenDetailDto {
 
     private List<PlantDto> plantList;
 
-    public static GardenDetailDto toDto(String name, List<GardenPlant> gardenPlants) {
+    public static GardenDetailDto toDto(String name, List<Plant> plants) {
 
-        List<PlantDto> plantDtoList = gardenPlants.stream().map(PlantDto::toDto).collect(Collectors.toList());
+        List<PlantDto> plantDtoList = plants.stream().map(PlantDto::toDto).collect(Collectors.toList());
 
         return new GardenDetailDto(name, plantDtoList);
 

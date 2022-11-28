@@ -1,9 +1,7 @@
 package com.letter.plant.application.letter.service;
 
 import com.letter.plant.application.garden.domain.Garden;
-import com.letter.plant.application.garden.domain.GardenPlant;
 import com.letter.plant.application.garden.domain.Plant;
-import com.letter.plant.application.garden.repository.GardenPlantRepository;
 import com.letter.plant.application.garden.repository.GardenRepository;
 import com.letter.plant.application.garden.repository.PlantRepository;
 import com.letter.plant.application.letter.domain.Letter;
@@ -24,7 +22,6 @@ public class LetterService {
 
     private final LetterRepository letterRepository;
     private final GardenRepository gardenRepository;
-    private final GardenPlantRepository gardenPlantRepository;
     private final PlantRepository plantRepository;
 
     @Transactional
@@ -38,17 +35,14 @@ public class LetterService {
 
         letterRepository.save(letter);
 
-        Plant plant = plantRepository.findByName(letterDto.getPlantName())
-                .orElseThrow(RuntimeException::new);
-
-        GardenPlant gardenPlant = GardenPlant.builder()
+        Plant plant = Plant.builder()
                 .letterId(letter.getId())
+                .plantName(letter.getPlantName())
                 .wateringCount(0)
                 .garden(garden)
-                .plant(plant)
                 .build();
 
-        gardenPlantRepository.save(gardenPlant);
+        plantRepository.save(plant);
     }
 
 
@@ -69,4 +63,5 @@ public class LetterService {
 
         return LetterWrapperDto.toDto(letters);
     }
+
 }

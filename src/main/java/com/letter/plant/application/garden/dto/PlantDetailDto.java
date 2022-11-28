@@ -13,21 +13,16 @@ public class PlantDetailDto {
 
     private String plantName;
 
-    private int growingPeriod;
-
     private int wateringCount;
 
     private List<String> keywords;
 
-    public static PlantDetailDto toDto(String plantName, int growingPeriod, int wateringCount, List<Keyword> keywords) {
+    public static PlantDetailDto toDto(String plantName, int wateringCount, List<Keyword> keywords) {
+
         List<String> keywordList = keywords.stream().map(Keyword::getKeyword).collect(Collectors.toList());
 
-        return new PlantDetailDto(
-                plantName,
-                growingPeriod,
-                wateringCount,
-                keywordList
-        );
+        return new PlantDetailDto(plantName, wateringCount, keywordList);
+
     }
 
 }
