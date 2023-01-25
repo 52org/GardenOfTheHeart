@@ -16,7 +16,7 @@ public class SeedResponseDTO {
 
     private final String description;
 
-    public static SeedResponseDTO toDTO(Seed seed) {
+    public static SeedResponseDTO toDTO(final Seed seed) {
 
         return new SeedResponseDTO(seed.getPlantName(), seed.getGrowingPeriod(), seed.getDescription());
 
