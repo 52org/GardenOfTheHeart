@@ -52,6 +52,7 @@ public class SeedControllerTest {
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
+
         gson = new Gson();
 
     }
