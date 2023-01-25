@@ -32,7 +32,7 @@ public class SeedServiceTest {
     private SeedRepository seedRepository;
 
     private final String plantName = "해바라기";
-    private final int growingPeriod = 4;
+    private final Integer growingPeriod = 4;
     private final String description = "사랑해바라기 !";
     private final AddSeedRequestDTO addSeedRequestDTO = new AddSeedRequestDTO(plantName, growingPeriod, description);
 
