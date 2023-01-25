@@ -7,7 +7,6 @@ import com._52org.gardenoftheheart.application.seed.service.SeedService;
 import com._52org.gardenoftheheart.exception.GlobalExceptionHandler;
 import com._52org.gardenoftheheart.exception.SeedErrorResult;
 import com._52org.gardenoftheheart.exception.SeedException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +24,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Stream;

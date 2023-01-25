@@ -1,10 +1,12 @@
 package com._52org.gardenoftheheart.application.seed.dto;
 
 import com._52org.gardenoftheheart.application.seed.domain.Seed;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
+@Builder
 @RequiredArgsConstructor
 public class SeedResponseDTO {
 
