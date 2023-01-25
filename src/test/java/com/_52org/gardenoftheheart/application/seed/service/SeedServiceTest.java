@@ -62,7 +62,7 @@ public class SeedServiceTest {
 
         // then
 //        assertThat(result.getId()).isNotNull();
-        assertThat(result.getPlantName()).isEqualTo("해바라기");
+        assertThat(result.getPlantName()).isEqualTo(plantName);
 
         // verify
         verify(seedRepository, times(1)).findByPlantName(plantName);
@@ -120,9 +120,9 @@ public class SeedServiceTest {
     private Seed seed() {
 
         return Seed.builder()
-                .plantName("해바라기")
-                .growingPeriod(4)
-                .description("사랑해바라기 !")
+                .plantName(plantName)
+                .growingPeriod(growingPeriod)
+                .description(description)
                 .build();
 
     }
