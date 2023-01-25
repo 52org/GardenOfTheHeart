@@ -37,7 +37,7 @@ public class SeedServiceTest {
     private final AddSeedRequestDTO addSeedRequestDTO = new AddSeedRequestDTO(plantName, growingPeriod, description);
 
     @Test
-    public void 씨앗등록실패_이미존재() {
+    public void 씨앗등록실패_이미존재함() {
 
         // given
         doReturn(Optional.of(Seed.builder().build())).when(seedRepository).findByPlantName(plantName);

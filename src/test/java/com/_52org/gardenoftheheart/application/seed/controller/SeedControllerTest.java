@@ -158,7 +158,7 @@ public class SeedControllerTest {
     }
 
     @Test
-    public void 씨앗상세조회실패_씨앗이존재하지않음() throws Exception {
+    public void 씨앗상세조회실패_존재하지않음() throws Exception {
 
         // given
         final String url = "/seed/해바라기";
