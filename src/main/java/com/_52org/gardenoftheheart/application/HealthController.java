@@ -1,4 +1,4 @@
-package com.garden.heart.application;
+package com._52org.gardenoftheheart.application;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
