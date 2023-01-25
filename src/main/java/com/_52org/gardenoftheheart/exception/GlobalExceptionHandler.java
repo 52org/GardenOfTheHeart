@@ -1,6 +1,8 @@
 package com._52org.gardenoftheheart.exception;
 
 import com._52org.gardenoftheheart.core.jpa.common.ApiResponse;
+import com._52org.gardenoftheheart.exception.seed.SeedErrorResult;
+import com._52org.gardenoftheheart.exception.seed.SeedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;

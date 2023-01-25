@@ -1,4 +1,4 @@
-package com._52org.gardenoftheheart.exception;
+package com._52org.gardenoftheheart.exception.seed;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
