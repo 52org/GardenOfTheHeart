@@ -75,7 +75,7 @@ public class SeedControllerTest {
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest(plantName, growingPeriod, description)))
+                        .content(gson.toJson(addSeedRequest(plantName, growingPeriod, description)))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -96,7 +96,7 @@ public class SeedControllerTest {
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -121,7 +121,7 @@ public class SeedControllerTest {
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -203,7 +203,7 @@ public class SeedControllerTest {
 
     }
 
-    private AddSeedRequestDTO seedRegisterRequest(final String plantName, final Integer growingPeriod, final String description) {
+    private AddSeedRequestDTO addSeedRequest(final String plantName, final Integer growingPeriod, final String description) {
 
         return AddSeedRequestDTO.builder()
                 .plantName(plantName)
