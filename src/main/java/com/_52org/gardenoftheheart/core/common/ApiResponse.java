@@ -1,4 +1,4 @@
-package com._52org.gardenoftheheart.core.jpa.common;
+package com._52org.gardenoftheheart.core.common;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
