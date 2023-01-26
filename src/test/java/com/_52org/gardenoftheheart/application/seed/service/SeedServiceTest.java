@@ -3,9 +3,9 @@ package com._52org.gardenoftheheart.application.seed.service;
 import com._52org.gardenoftheheart.application.seed.domain.Seed;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
+import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
+import com._52org.gardenoftheheart.application.seed.error.SeedException;
 import com._52org.gardenoftheheart.application.seed.repository.SeedRepository;
-import com._52org.gardenoftheheart.exception.seed.SeedErrorResult;
-import com._52org.gardenoftheheart.exception.seed.SeedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -46,7 +46,7 @@ public class SeedServiceTest {
         final SeedException result = assertThrows(SeedException.class, () -> target.addSeed(addSeedRequestDTO));
 
         // then
-        assertThat(result.getErrorResult()).isEqualTo(SeedErrorResult.DUPLICATED_SEED_REGISTER);
+        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.DUPLICATED_PLANTNAME);
 
     }
 
@@ -98,7 +98,7 @@ public class SeedServiceTest {
         final SeedException result = assertThrows(SeedException.class, () -> target.getSeed(plantName));
 
         // then
-        assertThat(result.getErrorResult()).isEqualTo(SeedErrorResult.SEED_NOT_FOUND);
+        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.NOT_EXIST_SEED);
 
     }
 

@@ -3,10 +3,10 @@ package com._52org.gardenoftheheart.application.seed.controller;
 import com._52org.gardenoftheheart.application.seed.api.SeedController;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
+import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
+import com._52org.gardenoftheheart.application.seed.error.SeedException;
 import com._52org.gardenoftheheart.application.seed.service.SeedService;
-import com._52org.gardenoftheheart.exception.GlobalExceptionHandler;
-import com._52org.gardenoftheheart.exception.seed.SeedErrorResult;
-import com._52org.gardenoftheheart.exception.seed.SeedException;
+import com._52org.gardenoftheheart.error.GlobalExceptionHandler;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,7 +89,7 @@ public class SeedControllerTest {
 
         // given
         final String url = "/seed";
-        doThrow(new SeedException(SeedErrorResult.DUPLICATED_SEED_REGISTER))
+        doThrow(new SeedException(SeedErrorCode.DUPLICATED_PLANTNAME))
                 .when(seedService)
                 .addSeed(any(AddSeedRequestDTO.class));
 
@@ -163,7 +163,7 @@ public class SeedControllerTest {
 
         // given
         final String url = "/seed/해바라기";
-        doThrow(new SeedException(SeedErrorResult.SEED_NOT_FOUND)).when(seedService).getSeed("해바라기");
+        doThrow(new SeedException(SeedErrorCode.NOT_EXIST_SEED)).when(seedService).getSeed("해바라기");
 
         // when
         final ResultActions resultActions = mockMvc.perform(

@@ -3,9 +3,9 @@ package com._52org.gardenoftheheart.application.seed.service;
 import com._52org.gardenoftheheart.application.seed.domain.Seed;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
+import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
+import com._52org.gardenoftheheart.application.seed.error.SeedException;
 import com._52org.gardenoftheheart.application.seed.repository.SeedRepository;
-import com._52org.gardenoftheheart.exception.seed.SeedErrorResult;
-import com._52org.gardenoftheheart.exception.seed.SeedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class SeedService {
 
         seedRepository.findByPlantName(addSeedRequestDTO.getPlantName())
                 .ifPresent(e -> {
-                    throw new SeedException(SeedErrorResult.DUPLICATED_SEED_REGISTER);
+                    throw new SeedException(SeedErrorCode.DUPLICATED_PLANTNAME);
                 });
 
         final Seed seed = seedRepository.save(addSeedRequestDTO.toEntity());
@@ -47,7 +47,7 @@ public class SeedService {
     public SeedResponseDTO getSeed(final String plantName) {
 
         final Seed seed = seedRepository.findByPlantName(plantName)
-                .orElseThrow(() -> new SeedException(SeedErrorResult.SEED_NOT_FOUND));
+                .orElseThrow(() -> new SeedException(SeedErrorCode.NOT_EXIST_SEED));
 
         return SeedResponseDTO.toDTO(seed);
 

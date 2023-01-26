@@ -3,14 +3,13 @@ package com._52org.gardenoftheheart.application.seed.api;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
 import com._52org.gardenoftheheart.application.seed.service.SeedService;
-import com._52org.gardenoftheheart.core.jpa.common.ApiResponse;
+import com._52org.gardenoftheheart.core.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
