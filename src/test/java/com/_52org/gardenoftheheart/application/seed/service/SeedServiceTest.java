@@ -3,9 +3,9 @@ package com._52org.gardenoftheheart.application.seed.service;
 import com._52org.gardenoftheheart.application.seed.domain.Seed;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
+import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
+import com._52org.gardenoftheheart.application.seed.error.SeedException;
 import com._52org.gardenoftheheart.application.seed.repository.SeedRepository;
-import com._52org.gardenoftheheart.exception.SeedErrorResult;
-import com._52org.gardenoftheheart.exception.SeedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,12 +32,12 @@ public class SeedServiceTest {
     private SeedRepository seedRepository;
 
     private final String plantName = "해바라기";
-    private final int growingPeriod = 4;
+    private final Integer growingPeriod = 4;
     private final String description = "사랑해바라기 !";
     private final AddSeedRequestDTO addSeedRequestDTO = new AddSeedRequestDTO(plantName, growingPeriod, description);
 
     @Test
-    public void 씨앗등록실패_이미존재() {
+    public void 씨앗등록실패_이미존재함() {
 
         // given
         doReturn(Optional.of(Seed.builder().build())).when(seedRepository).findByPlantName(plantName);
@@ -46,7 +46,7 @@ public class SeedServiceTest {
         final SeedException result = assertThrows(SeedException.class, () -> target.addSeed(addSeedRequestDTO));
 
         // then
-        assertThat(result.getErrorResult()).isEqualTo(SeedErrorResult.DUPLICATED_SEED_REGISTER);
+        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.DUPLICATED_PLANTNAME);
 
     }
 
@@ -62,7 +62,7 @@ public class SeedServiceTest {
 
         // then
 //        assertThat(result.getId()).isNotNull();
-        assertThat(result.getPlantName()).isEqualTo("해바라기");
+        assertThat(result.getPlantName()).isEqualTo(plantName);
 
         // verify
         verify(seedRepository, times(1)).findByPlantName(plantName);
@@ -98,7 +98,7 @@ public class SeedServiceTest {
         final SeedException result = assertThrows(SeedException.class, () -> target.getSeed(plantName));
 
         // then
-        assertThat(result.getErrorResult()).isEqualTo(SeedErrorResult.SEED_NOT_FOUND);
+        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.NOT_EXIST_SEED);
 
     }
 
@@ -120,9 +120,9 @@ public class SeedServiceTest {
     private Seed seed() {
 
         return Seed.builder()
-                .plantName("해바라기")
-                .growingPeriod(4)
-                .description("사랑해바라기 !")
+                .plantName(plantName)
+                .growingPeriod(growingPeriod)
+                .description(description)
                 .build();
 
     }

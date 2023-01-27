@@ -3,11 +3,10 @@ package com._52org.gardenoftheheart.application.seed.controller;
 import com._52org.gardenoftheheart.application.seed.api.SeedController;
 import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
 import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
+import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
+import com._52org.gardenoftheheart.application.seed.error.SeedException;
 import com._52org.gardenoftheheart.application.seed.service.SeedService;
-import com._52org.gardenoftheheart.exception.GlobalExceptionHandler;
-import com._52org.gardenoftheheart.exception.SeedErrorResult;
-import com._52org.gardenoftheheart.exception.SeedException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com._52org.gardenoftheheart.error.GlobalExceptionHandler;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +24,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -55,6 +52,7 @@ public class SeedControllerTest {
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
+
         gson = new Gson();
 
     }
@@ -77,7 +75,7 @@ public class SeedControllerTest {
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest(plantName, growingPeriod, description)))
+                        .content(gson.toJson(addSeedRequest(plantName, growingPeriod, description)))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -91,14 +89,14 @@ public class SeedControllerTest {
 
         // given
         final String url = "/seed";
-        doThrow(new SeedException(SeedErrorResult.DUPLICATED_SEED_REGISTER))
+        doThrow(new SeedException(SeedErrorCode.DUPLICATED_PLANTNAME))
                 .when(seedService)
                 .addSeed(any(AddSeedRequestDTO.class));
 
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -123,7 +121,7 @@ public class SeedControllerTest {
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(seedRegisterRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -161,11 +159,11 @@ public class SeedControllerTest {
     }
 
     @Test
-    public void 씨앗상세조회실패_씨앗이존재하지않음() throws Exception {
+    public void 씨앗상세조회실패_존재하지않음() throws Exception {
 
         // given
         final String url = "/seed/해바라기";
-        doThrow(new SeedException(SeedErrorResult.SEED_NOT_FOUND)).when(seedService).getSeed("해바라기");
+        doThrow(new SeedException(SeedErrorCode.NOT_EXIST_SEED)).when(seedService).getSeed("해바라기");
 
         // when
         final ResultActions resultActions = mockMvc.perform(
@@ -205,7 +203,7 @@ public class SeedControllerTest {
 
     }
 
-    private AddSeedRequestDTO seedRegisterRequest(final String plantName, final Integer growingPeriod, final String description) {
+    private AddSeedRequestDTO addSeedRequest(final String plantName, final Integer growingPeriod, final String description) {
 
         return AddSeedRequestDTO.builder()
                 .plantName(plantName)
