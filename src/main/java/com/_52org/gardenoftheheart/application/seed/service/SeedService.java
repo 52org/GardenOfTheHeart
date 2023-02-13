@@ -47,7 +47,7 @@ public class SeedService {
     public SeedResponseDTO getSeed(final String plantName) {
 
         final Seed seed = seedRepository.findByPlantName(plantName)
-                .orElseThrow(() -> new SeedException(SeedErrorCode.NOT_EXIST_SEED));
+                .orElseThrow(() -> new SeedException(SeedErrorCode.NON_EXISTENT_SEED));
 
         return SeedResponseDTO.toDTO(seed);
 

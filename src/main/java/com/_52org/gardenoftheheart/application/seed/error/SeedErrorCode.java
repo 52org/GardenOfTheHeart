@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum SeedErrorCode implements ErrorCode {
 
-    DUPLICATED_PLANTNAME(HttpStatus.BAD_REQUEST, "Plant name is duplicated"),
-    NOT_EXIST_SEED(HttpStatus.NOT_FOUND, "Seed does not exist");
+    DUPLICATED_PLANTNAME(HttpStatus.CONFLICT, "Plant name is duplicated"),
+    NON_EXISTENT_SEED(HttpStatus.NOT_FOUND, "Seed does not exist");
 
     private final HttpStatus httpStatus;
 

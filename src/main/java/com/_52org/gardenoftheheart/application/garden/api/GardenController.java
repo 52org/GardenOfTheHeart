@@ -1,7 +1,8 @@
 package com._52org.gardenoftheheart.application.garden.api;
 
-import com._52org.gardenoftheheart.application.garden.dto.CreateGardenRequestDTO;
-import com._52org.gardenoftheheart.application.garden.dto.GardenResponseDTO;
+import com._52org.gardenoftheheart.application.garden.dto.GardenLoginResponseDTO;
+import com._52org.gardenoftheheart.application.garden.dto.GardenRequestDTO;
+import com._52org.gardenoftheheart.application.garden.dto.GardenSignUpResponseDTO;
 import com._52org.gardenoftheheart.application.garden.service.GardenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,17 @@ public class GardenController {
 
     private final GardenService gardenService;
 
-    @PostMapping
-    public ResponseEntity<GardenResponseDTO> createGarden(@RequestBody @Valid final CreateGardenRequestDTO createGardenRequestDTO) {
+    @PostMapping("/join")
+    public ResponseEntity<GardenSignUpResponseDTO> createGarden(@RequestBody @Valid final GardenRequestDTO gardenRequestDTO) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(gardenService.createGarden(createGardenRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(gardenService.createGarden(gardenRequestDTO));
+
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<GardenLoginResponseDTO> login(@RequestBody @Valid final GardenRequestDTO gardenRequestDTO) {
+
+        return ResponseEntity.ok(gardenService.login(gardenRequestDTO));
 
     }
 

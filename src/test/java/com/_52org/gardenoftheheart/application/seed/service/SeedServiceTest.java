@@ -98,7 +98,7 @@ public class SeedServiceTest {
         final SeedException result = assertThrows(SeedException.class, () -> target.getSeed(plantName));
 
         // then
-        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.NOT_EXIST_SEED);
+        assertThat(result.getErrorCode()).isEqualTo(SeedErrorCode.NON_EXISTENT_SEED);
 
     }
 
