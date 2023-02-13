@@ -8,13 +8,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GardenResponseDTO {
+public class GardenSignUpResponseDTO {
 
     private final String uuid;
 
-    public static GardenResponseDTO toDTO(final Garden garden) {
+    public static GardenSignUpResponseDTO toDTO(final Garden garden) {
 
-        return new GardenResponseDTO(garden.getUuid());
+        return new GardenSignUpResponseDTO(garden.getUuid());
 
     }
 

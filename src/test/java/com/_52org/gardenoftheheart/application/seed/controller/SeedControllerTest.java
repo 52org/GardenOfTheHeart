@@ -101,7 +101,7 @@ public class SeedControllerTest {
         );
 
         // then
-        resultActions.andExpect(status().isBadRequest());
+        resultActions.andExpect(status().isConflict());
 
     }
 
@@ -163,7 +163,7 @@ public class SeedControllerTest {
 
         // given
         final String url = "/seed/해바라기";
-        doThrow(new SeedException(SeedErrorCode.NOT_EXIST_SEED)).when(seedService).getSeed("해바라기");
+        doThrow(new SeedException(SeedErrorCode.NON_EXISTENT_SEED)).when(seedService).getSeed("해바라기");
 
         // when
         final ResultActions resultActions = mockMvc.perform(
