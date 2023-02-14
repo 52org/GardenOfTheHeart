@@ -49,7 +49,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/garden/join", "/garden/login", "/stat/**", "/letter/send").permitAll()
+                .antMatchers("/check", "/stat/**", "/garden/join", "/garden/login", "/seed/**", "/letter/send").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
