@@ -9,4 +9,6 @@ public interface GardenRepository extends JpaRepository<Garden, Long> {
 
     Optional<Garden> findByGardenName(final String gardenName);
 
+    Optional<Garden> findByUuid(final String uuid);
+
 }
