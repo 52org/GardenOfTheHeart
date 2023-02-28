@@ -1,6 +1,7 @@
-package com._52org.gardenoftheheart.application.seed.domain;
+package com._52org.gardenoftheheart.application.plant.domain;
 
 import com._52org.gardenoftheheart.core.jpa.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,8 @@ import javax.persistence.Lob;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class Seed extends BaseEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Plant extends BaseEntity {
 
     @Column(nullable = false)
     private String plantName;
@@ -25,7 +26,7 @@ public class Seed extends BaseEntity {
     private String description;
 
     @Builder
-    public Seed(String plantName, Integer growingPeriod, String description) {
+    public Plant(String plantName, Integer growingPeriod, String description) {
         this.plantName = plantName;
         this.growingPeriod = growingPeriod;
         this.description = description;

@@ -1,6 +1,6 @@
-package com._52org.gardenoftheheart.application.seed.repository;
+package com._52org.gardenoftheheart.application.plant.repository;
 
-import com._52org.gardenoftheheart.application.seed.domain.Seed;
+import com._52org.gardenoftheheart.application.plant.domain.Plant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,23 +10,23 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest // JPA Repository 들에 대한 빈들을 등록하여 단위 테스트의 작성을 용이하게 함
-public class SeedRepositoryTest {
+public class PlantRepositoryTest {
 
     @Autowired
-    private SeedRepository seedRepository;
+    private PlantRepository plantRepository;
 
     @Test
     public void 씨앗등록() {
 
         // given
-        final Seed seed = Seed.builder()
+        final Plant plant = Plant.builder()
                 .plantName("해바라기")
                 .growingPeriod(4)
                 .description("사랑해바라기 !")
                 .build();
 
         // when
-        final Seed result = seedRepository.save(seed);
+        final Plant result = plantRepository.save(plant);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -40,16 +40,16 @@ public class SeedRepositoryTest {
     public void 씨앗조회() {
 
         // given
-        final Seed seed = Seed.builder()
+        final Plant plant = Plant.builder()
                 .plantName("해바라기")
                 .growingPeriod(4)
                 .description("사랑해바라기 !")
                 .build();
 
         // when
-        seedRepository.save(seed);
+        plantRepository.save(plant);
 
-        final Seed result = seedRepository.findByPlantName("해바라기").orElse(null);
+        final Plant result = plantRepository.findByPlantName("해바라기").orElse(null);
 
         // then
         assertThat(result).isNotNull();
@@ -64,22 +64,22 @@ public class SeedRepositoryTest {
     public void 씨앗리스트조회() {
 
         // given
-        final Seed seed1 = Seed.builder()
+        final Plant plant1 = Plant.builder()
                 .plantName("해바라기")
                 .growingPeriod(4)
                 .description("사랑해바라기 !")
                 .build();
-        final Seed seed2 = Seed.builder()
+        final Plant plant2 = Plant.builder()
                 .plantName("바나나")
                 .growingPeriod(1)
                 .description("바나나를 먹으면 나한테 반ㅎ아니.")
                 .build();
 
         // when
-        seedRepository.save(seed1);
-        seedRepository.save(seed2);
+        plantRepository.save(plant1);
+        plantRepository.save(plant2);
 
-        final List<Seed> result = seedRepository.findAll();
+        final List<Plant> result = plantRepository.findAll();
 
         // then
         assertThat(result).isNotNull();

@@ -1,11 +1,11 @@
-package com._52org.gardenoftheheart.application.seed.controller;
+package com._52org.gardenoftheheart.application.plant.controller;
 
-import com._52org.gardenoftheheart.application.seed.api.SeedController;
-import com._52org.gardenoftheheart.application.seed.dto.AddSeedRequestDTO;
-import com._52org.gardenoftheheart.application.seed.dto.SeedResponseDTO;
-import com._52org.gardenoftheheart.application.seed.error.SeedErrorCode;
-import com._52org.gardenoftheheart.application.seed.error.SeedException;
-import com._52org.gardenoftheheart.application.seed.service.SeedService;
+import com._52org.gardenoftheheart.application.plant.api.PlantController;
+import com._52org.gardenoftheheart.application.plant.dto.PlantRequestDTO;
+import com._52org.gardenoftheheart.application.plant.dto.PlantResponseDTO;
+import com._52org.gardenoftheheart.application.plant.error.PlantErrorCode;
+import com._52org.gardenoftheheart.application.plant.error.PlantException;
+import com._52org.gardenoftheheart.application.plant.service.PlantService;
 import com._52org.gardenoftheheart.error.GlobalExceptionHandler;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,13 +33,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class SeedControllerTest {
+public class PlantControllerTest {
 
     @InjectMocks
-    private SeedController target;
+    private PlantController target;
 
     @Mock
-    private SeedService seedService;
+    private PlantService plantService;
 
     private MockMvc mockMvc;
 
@@ -70,12 +70,12 @@ public class SeedControllerTest {
     public void 씨앗등록실패_잘못된파라미터(final String plantName, final Integer growingPeriod, final String description) throws Exception {
 
         // given
-        final String url = "/seed";
+        final String url = "/plant";
 
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(addSeedRequest(plantName, growingPeriod, description)))
+                        .content(gson.toJson(addPlantRequest(plantName, growingPeriod, description)))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -85,18 +85,18 @@ public class SeedControllerTest {
     }
 
     @Test
-    public void 씨앗등록실패_SeedService에서에러Throw() throws Exception {
+    public void 씨앗등록실패_PlantService에서에러Throw() throws Exception {
 
         // given
-        final String url = "/seed";
-        doThrow(new SeedException(SeedErrorCode.DUPLICATED_PLANTNAME))
-                .when(seedService)
-                .addSeed(any(AddSeedRequestDTO.class));
+        final String url = "/plant";
+        doThrow(new PlantException(PlantErrorCode.DUPLICATED_PLANTNAME))
+                .when(plantService)
+                .addPlant(any(PlantRequestDTO.class));
 
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addPlantRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -109,28 +109,28 @@ public class SeedControllerTest {
     public void 씨앗등록성공() throws Exception {
 
         // given
-        final String url = "/seed";
-        final SeedResponseDTO seedResponseDTO = SeedResponseDTO.builder()
+        final String url = "/plant";
+        final PlantResponseDTO plantResponseDTO = PlantResponseDTO.builder()
                 .plantName("해바라기")
                 .growingPeriod(4)
                 .description("사랑해바라기 !")
                 .build();
 
-        doReturn(seedResponseDTO).when(seedService).addSeed(any(AddSeedRequestDTO.class));
+        doReturn(plantResponseDTO).when(plantService).addPlant(any(PlantRequestDTO.class));
 
         // when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(addSeedRequest("해바라기", 4, "사랑해바라기 !")))
+                        .content(gson.toJson(addPlantRequest("해바라기", 4, "사랑해바라기 !")))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
         // then
         resultActions.andExpect(status().isCreated());
 
-        final SeedResponseDTO response = gson.fromJson(resultActions.andReturn()
+        final PlantResponseDTO response = gson.fromJson(resultActions.andReturn()
                 .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8), SeedResponseDTO.class);
+                .getContentAsString(StandardCharsets.UTF_8), PlantResponseDTO.class);
 
         assertThat(response.getPlantName()).isEqualTo("해바라기");
         assertThat(response.getGrowingPeriod()).isEqualTo(4);
@@ -141,12 +141,12 @@ public class SeedControllerTest {
     public void 씨앗목록조회성공() throws Exception {
 
         // given
-        final String url = "/seed";
+        final String url = "/plant";
         doReturn(Arrays.asList(
-                SeedResponseDTO.builder().build(),
-                SeedResponseDTO.builder().build(),
-                SeedResponseDTO.builder().build()
-        )).when(seedService).getSeedList();
+                PlantResponseDTO.builder().build(),
+                PlantResponseDTO.builder().build(),
+                PlantResponseDTO.builder().build()
+        )).when(plantService).getPlantList();
 
         // when
         final ResultActions resultActions = mockMvc.perform(
@@ -162,8 +162,8 @@ public class SeedControllerTest {
     public void 씨앗상세조회실패_존재하지않음() throws Exception {
 
         // given
-        final String url = "/seed/해바라기";
-        doThrow(new SeedException(SeedErrorCode.NON_EXISTENT_SEED)).when(seedService).getSeed("해바라기");
+        final String url = "/plant/해바라기";
+        doThrow(new PlantException(PlantErrorCode.NON_EXISTENT_PLANT)).when(plantService).getPlant("해바라기");
 
         // when
         final ResultActions resultActions = mockMvc.perform(
@@ -179,8 +179,8 @@ public class SeedControllerTest {
     public void 씨앗상세조회성공() throws Exception {
 
         // given
-        final String url = "/seed/해바라기";
-        doReturn(SeedResponseDTO.builder().build()).when(seedService).getSeed("해바라기");
+        final String url = "/plant/해바라기";
+        doReturn(PlantResponseDTO.builder().build()).when(plantService).getPlant("해바라기");
 
         // when
         final ResultActions resultActions = mockMvc.perform(
@@ -203,9 +203,9 @@ public class SeedControllerTest {
 
     }
 
-    private AddSeedRequestDTO addSeedRequest(final String plantName, final Integer growingPeriod, final String description) {
+    private PlantRequestDTO addPlantRequest(final String plantName, final Integer growingPeriod, final String description) {
 
-        return AddSeedRequestDTO.builder()
+        return PlantRequestDTO.builder()
                 .plantName(plantName)
                 .growingPeriod(growingPeriod)
                 .description(description)
