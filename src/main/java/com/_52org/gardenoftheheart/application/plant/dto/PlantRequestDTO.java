@@ -1,6 +1,6 @@
-package com._52org.gardenoftheheart.application.seed.dto;
+package com._52org.gardenoftheheart.application.plant.dto;
 
-import com._52org.gardenoftheheart.application.seed.domain.Seed;
+import com._52org.gardenoftheheart.application.plant.domain.Plant;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-public class AddSeedRequestDTO {
+public class PlantRequestDTO {
 
     @NotBlank
     private final String plantName;
@@ -26,9 +26,9 @@ public class AddSeedRequestDTO {
     @NotBlank
     private final String description;
 
-    public Seed toEntity() {
+    public Plant toEntity() {
 
-        return Seed.builder()
+        return Plant.builder()
                 .plantName(plantName)
                 .growingPeriod(growingPeriod)
                 .description(description)
