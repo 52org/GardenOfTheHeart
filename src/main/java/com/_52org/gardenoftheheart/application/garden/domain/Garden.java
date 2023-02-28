@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Garden extends BaseEntity implements UserDetails {
 
@@ -72,4 +72,5 @@ public class Garden extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
